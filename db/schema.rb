@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_22_161960) do
+ActiveRecord::Schema.define(version: 2019_10_23_033706) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "email"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 2019_10_22_161960) do
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "comment"
+    t.bigint "model_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_comments_on_model_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "detail_models", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -70,6 +80,15 @@ ActiveRecord::Schema.define(version: 2019_10_22_161960) do
     t.string "payment_type"
   end
 
+  create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "question"
+    t.string "answer"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
   create_table "shipping_types", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "shipping_type"
     t.datetime "created_at", null: false
@@ -100,6 +119,8 @@ ActiveRecord::Schema.define(version: 2019_10_22_161960) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "models"
+  add_foreign_key "comments", "users"
   add_foreign_key "detail_models", "colors"
   add_foreign_key "detail_models", "models"
   add_foreign_key "detail_models", "sizes"
@@ -107,4 +128,5 @@ ActiveRecord::Schema.define(version: 2019_10_22_161960) do
   add_foreign_key "orders", "payment_types"
   add_foreign_key "orders", "shipping_types"
   add_foreign_key "orders", "users"
+  add_foreign_key "questions", "users"
 end
