@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_23_033706) do
+ActiveRecord::Schema.define(version: 2019_10_23_034717) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "email"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 2019_10_23_033706) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "admin_id"
+    t.index ["admin_id"], name: "index_questions_on_admin_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -128,5 +130,6 @@ ActiveRecord::Schema.define(version: 2019_10_23_033706) do
   add_foreign_key "orders", "payment_types"
   add_foreign_key "orders", "shipping_types"
   add_foreign_key "orders", "users"
+  add_foreign_key "questions", "admins"
   add_foreign_key "questions", "users"
 end
