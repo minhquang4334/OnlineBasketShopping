@@ -16,4 +16,5 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require admin-lte/dist/js/app.js
 //= require_tree .
