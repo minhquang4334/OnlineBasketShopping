@@ -19,4 +19,5 @@
 //= require admin-lte/dist/js/app.js
 //= require highcharts
 //= require highcharts/highcharts-more
+//= require toastr
 //= require_tree .
