@@ -7,8 +7,8 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="<%= root_path %>">Dashboard</a></li>
-          <li class="breadcrumb-item"><%= link_to "List models", models_path %></li>
-          <li class="breadcrumb-item active">Model's info</li>
+          <li class="breadcrumb-item"><%= link_to "List models", detail_models_path %></li>
+          <li class="breadcrumb-item active">Detail model's info</li>
         </ol>
       </div>
     </div>
@@ -21,7 +21,7 @@
       <div class="col-md-12">
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Model's info</h3>
+            <h3 class="card-title">Detail model's info</h3>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
@@ -31,22 +31,38 @@
               <tbody>
                 <tr>
                   <th>Name</th>
-                  <td><%= @model.name %></td>
+                  <td><%= @detail_model.model.name %></td>
                 </tr>
                 <tr>
                   <th>Description</th>
-                  <td><%= @model.description %></td>
+                  <td><%= @detail_model.model.description %></td>
                 </tr>
                 <tr>
                   <th>image</th>
-                  <td><%= image_tag @model.image.url, :class => "model-image" if @model.image? %></td>
+                  <td><%= image_tag @detail_model.model.image.url, :class => "model-image" if @detail_model.model.image? %></td>
+                </tr>
+                <tr>
+                  <th>Size</th>
+                  <td><%= @detail_model.size.size %></td>
+                </tr>
+                <tr>
+                  <th>Color</th>
+                  <td><%= @detail_model.color.color %></td>
+                </tr>
+                <tr>
+                  <th>Price</th>
+                  <td><%= @detail_model.price %></td>
+                </tr>
+                <tr>
+                  <th>Quantity</th>
+                  <td><%= @detail_model.quantity %></td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div class="card-footer">
             <%= link_to "Back", :back, :class => "btn btn-inline-block btn-outline-info btn-sm" %>
-            <%= link_to "Edit", edit_model_path, :id => @model.id ,:class => "btn btn-inline-block btn-outline-warning btn-sm" %>
+            <%= link_to "Edit", edit_detail_model_path, :id => @detail_model.id ,:class => "btn btn-inline-block btn-outline-warning btn-sm" %>
           </div>
         </div>
       </div>

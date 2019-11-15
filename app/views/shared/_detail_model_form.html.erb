@@ -1,0 +1,30 @@
+<%= form_for @detail_model do |f|%>
+  <%= render "shared/error_messages", object: f.object %>
+  <div class="card-body">
+    <div class="form-group">
+      <label for="model">Model</label>
+      <%= f.select("model_id", Model.all.collect { |p| [ p.name, p.id ] }, {:prompt => "Select one"}, { class: 'form-control', required: true }) %>
+    </div>
+    <div class="form-group">
+      <label for="model">Size</label>
+      <%= f.select("size_id", Size.all.collect { |p| [ p.size, p.id ] }, {:prompt => "Select one"}, { class: 'form-control', required: true }) %>
+    </div>
+    <div class="form-group">
+      <label for="model">Color</label>
+      <%= f.select("color_id", Color.all.collect { |p| [ p.color, p.id ] }, {:prompt => "Select one"}, { class: 'form-control', required: true }) %>
+    </div>
+    <div class="form-group">
+      <label for="price">Model's price</label>
+      <%= f.text_field :price, placeholder: "Price...",
+        class: "form-control", id: "price", required: true %>
+    </div>
+    <div class="form-group">
+      <label for="quantity">Model's quantity</label>
+      <%= f.text_field :quantity, placeholder: "Quantity...",
+        class: "form-control", id: "quantity", required: true %>
+    </div>
+  </div>
+  <div class="card-footer">
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

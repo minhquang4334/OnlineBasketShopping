@@ -1,0 +1,7 @@
+<tr>
+  <td><%= "#{index+1}" + '.' %></td>
+  <td class="text-center"><%= color.color %></td>
+  <td class="text-right">
+    <%= link_to "Delete", color, method: :delete, data: { confirm: "Are you sure" }, :class => "btn btn-inline-block btn-outline-danger btn-sm" %>
+  </td>
+</tr>

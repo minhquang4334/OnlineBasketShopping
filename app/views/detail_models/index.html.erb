@@ -1,0 +1,75 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>List models</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= root_path %>">Dashboard</a></li>
+          <li class="breadcrumb-item active">List detail models</li>
+        </ol>
+      </div>
+      <div class="col-sm-12">
+        <%= button_to "Create new model", new_detail_model_path, :method => :get, :class => "btn btn-inline  btn-primary float-right" %>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered" id="list-models">
+              <thead>                  
+                <tr>
+                  <th style="width: 10px">ID</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Size</th>
+                  <th>Color</th>
+                  <th>Quantity</th>
+                  <th style="width: 200px">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @detail_models.each do |detail_model| %>
+                  <tr>
+                    <td><%= detail_model.id %></td>
+                    <td><%= detail_model.model.name %></td>
+                    <td><%= detail_model.price %></td>
+                    <td><%= detail_model.size.size %></td>
+                    <td><%= detail_model.color.color %></td>
+                    <td><%= detail_model.quantity %></td>
+                    <td>
+                      <%= link_to "Info", detail_model, :class => "btn btn-inline-block btn-outline-info btn-sm" %>
+                      <%= link_to "Edit", edit_detail_model_path(detail_model), :class => "btn btn-inline-block btn-outline-warning btn-sm" %>
+                      <%= link_to "Delete", detail_model, method: :delete, data: { confirm: "Are you sure" }, :class => "btn btn-inline-block btn-outline-danger btn-sm" %>
+                    </td>
+                  </tr>
+                <% end %>  
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
