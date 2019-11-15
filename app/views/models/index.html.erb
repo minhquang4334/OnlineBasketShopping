@@ -53,7 +53,7 @@
                     <td><%= truncate(model.description, :length => 100) %></td>
                     <td>
                       <%= link_to "Info", model, :class => "btn btn-inline-block btn-outline-info btn-sm" %>
-                      <button type="button" class="btn btn-inline-block btn-outline-warning btn-sm">Edit</button>
+                      <%= link_to "Edit", edit_model_path(model)  ,:class => "btn btn-inline-block btn-outline-warning btn-sm" %>
                       <%= link_to "Delete", model, method: :delete, data: { confirm: "Are you sure" }, :class => "btn btn-inline-block btn-outline-danger btn-sm" %>
                     </td>
                   </tr>
