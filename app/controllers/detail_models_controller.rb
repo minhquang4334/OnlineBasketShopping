@@ -25,6 +25,8 @@ class DetailModelsController < ApplicationController
       flash[:success] = "Created success"
       redirect_to detail_models_path
     else
+      @size = Size.new()
+      @color = Color.new()
       render :new
     end
   end
@@ -34,6 +36,8 @@ class DetailModelsController < ApplicationController
       flash[:success] = "Updated success"
       redirect_to @detail_model
     else
+      @size = Size.new()
+      @color = Color.new()
       render :edit
     end
   end
