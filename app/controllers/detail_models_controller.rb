@@ -22,7 +22,7 @@ class DetailModelsController < ApplicationController
   def create
     @detail_model = DetailModel.new(detail_model_params)
     if @detail_model.save
-      flash[:success] = "Created success"
+      flash[:success] = "Created successfully"
       redirect_to detail_models_path
     else
       @size = Size.new()
@@ -33,7 +33,7 @@ class DetailModelsController < ApplicationController
 
   def update
     if @detail_model.update_attributes detail_model_params
-      flash[:success] = "Updated success"
+      flash[:success] = "Updated successfully"
       redirect_to @detail_model
     else
       @size = Size.new()
@@ -44,7 +44,7 @@ class DetailModelsController < ApplicationController
 
   def destroy
     @detail_model.destroy
-    flash[:success] = "Deleted success"
+    flash[:success] = "Deleted successfully"
     redirect_to request.referrer || root_url
   end
 
