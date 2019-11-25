@@ -8,23 +8,26 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
-  <body class="sidebar-mini layout-fixed layout-navbar-fixed">
-    
-    <%= render "layouts/header" %>
-    <%= render "layouts/sidebar" %>
-    <% unless flash.empty? %>
-      <script type="text/javascript">
-          <% flash.each do |f| %>
-          <% type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'info') %>
-           toastr['<%= type %>']('<%= f[1] %>');
-          <% end %>
-      </script>
-     <% end %>
-    <div class="content-wrapper">
-      <section class="container-fluid pt-3">
-        <%= yield %> 
-      </section>
-    </div>
-  </body>
+  <% if admin_signed_in? %>
+    <body class="sidebar-mini layout-fixed layout-navbar-fixed">
+      
+      <%= render "layouts/header" %>
+      <%= render "layouts/sidebar" %>
+      <% unless flash.empty? %>
+        <script type="text/javascript">
+            <% flash.each do |f| %>
+            <% type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'info') %>
+            toastr['<%= type %>']('<%= f[1] %>');
+            <% end %>
+        </script>
+      <% end %>
+      <div class="content-wrapper">
+        <section class="container-fluid pt-3">
+          <%= yield %>
+        </section>
+      </div>
+    </body>
+  <% else %>
+    <%= render "devise/sessions/new" %>
+  <% end %>
 </html>

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :users
+  get 'users/show'
+  devise_for :admins
   root to: 'dashboard#index'
   resources :detail_models
   resources :posts

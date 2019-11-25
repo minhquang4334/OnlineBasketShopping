@@ -7,6 +7,9 @@ gem 'jquery-rails'
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass', '~> 5.11.2'
 
+gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use mysql as the database for Active Record

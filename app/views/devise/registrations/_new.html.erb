@@ -8,12 +8,6 @@
           <%= render "devise/shared/error_messages", resource: resource %>
 
           <div class="form-label-group my-1">
-            <label for="inputUsername"><i class="far fa-user"></i> Username</label>
-            <%= f.text_field :username, autofocus: true,
-            class: "form-control", placeholder: "Email address" %>
-          </div>
-
-          <div class="form-label-group my-1">
             <label for="inputEmail"><i class="far fa-envelope"></i> Email address</label>
             <%= f.email_field :email, autofocus: true,
               class: "form-control", placeholder: "Email address" %>
