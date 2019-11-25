@@ -17,5 +17,8 @@
         </div>
       </div>
     </form>
+    <ul class="navbar-nav ml-auto">
+      <%= link_to "Log Out", destroy_admin_session_path, :method=>'delete'%>
+    </ul>
   </nav>
   <!-- /.navbar -->
