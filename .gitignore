@@ -27,3 +27,5 @@
 /config/master.key
 .idea/*
 .ruby-version
+
+config/database.yml

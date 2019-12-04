@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_25_064536) do
+ActiveRecord::Schema.define(version: 2019_12_03_160912) do
 
-  create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(version: 2019_11_25_064536) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "colors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "colors", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "comment"
     t.bigint "model_id"
     t.bigint "user_id"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2019_11_25_064536) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "detail_models", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "detail_models", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "price"
     t.integer "quantity"
     t.bigint "size_id"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2019_11_25_064536) do
     t.index ["size_id"], name: "index_detail_models_on_size_id"
   end
 
-  create_table "models", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "models", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.string "image"
@@ -61,8 +61,15 @@ ActiveRecord::Schema.define(version: 2019_11_25_064536) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "order_details", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "quantity"
+    t.bigint "order_id"
+    t.bigint "detail_model_id"
+    t.index ["detail_model_id"], name: "index_order_details_on_detail_model_id"
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+  end
+
+  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "status"
     t.string "address"
     t.integer "phone_number"
@@ -70,28 +77,27 @@ ActiveRecord::Schema.define(version: 2019_11_25_064536) do
     t.string "receive_name"
     t.bigint "payment_type_id"
     t.bigint "shipping_type_id"
-    t.bigint "detail_model_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["detail_model_id"], name: "index_orders_on_detail_model_id"
+    t.integer "price"
     t.index ["payment_type_id"], name: "index_orders_on_payment_type_id"
     t.index ["shipping_type_id"], name: "index_orders_on_shipping_type_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "payment_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "payment_types", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "payment_type"
   end
 
-  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "question"
     t.string "answer"
     t.bigint "user_id"
@@ -102,19 +108,19 @@ ActiveRecord::Schema.define(version: 2019_11_25_064536) do
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
-  create_table "shipping_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "shipping_types", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "shipping_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "sizes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sizes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "avatar"
@@ -133,7 +139,8 @@ ActiveRecord::Schema.define(version: 2019_11_25_064536) do
   add_foreign_key "detail_models", "colors"
   add_foreign_key "detail_models", "models"
   add_foreign_key "detail_models", "sizes"
-  add_foreign_key "orders", "detail_models"
+  add_foreign_key "order_details", "detail_models"
+  add_foreign_key "order_details", "orders"
   add_foreign_key "orders", "payment_types"
   add_foreign_key "orders", "shipping_types"
   add_foreign_key "orders", "users"
