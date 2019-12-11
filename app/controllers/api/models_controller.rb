@@ -21,5 +21,13 @@ module Api
       }
     end
 
+    def size_color 
+      @sizes = Size.all
+      @colors = Color.all 
+      render :json => {
+        :sizes => @sizes,
+        :colors => @colors
+      }
+    end
   end
 end
