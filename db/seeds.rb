@@ -8,7 +8,7 @@
 #
 admin = Admin.create! email: "admin@gmail.com", password: "123456"
 
-Faker::Config.locale = "vi"
+# Faker::Config.locale = "vi"
 50.times do |n|
   user = User.new
   user.name = Faker::Games::LeagueOfLegends.champion
