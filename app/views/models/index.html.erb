@@ -42,6 +42,7 @@
                   <th>Name</th>
 
                   <th>Description</th>
+                  <th>Price</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -51,6 +52,7 @@
                     <td><%= model.id %></td>
                     <td><%= model.name %></td>
                     <td><%= truncate(model.description, :length => 100) %></td>
+                    <td><%= model.price %></td>
                     <td>
                       <%= link_to "Info", model, :class => "btn btn-inline-block btn-outline-info btn-sm" %>
                       <%= link_to "Edit", edit_model_path(model)  ,:class => "btn btn-inline-block btn-outline-warning btn-sm" %>

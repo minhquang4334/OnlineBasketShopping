@@ -38,6 +38,10 @@
                   <td><%= @model.description %></td>
                 </tr>
                 <tr>
+                  <th>Price</th>
+                  <td><%= @model.price %></td>
+                </tr>
+                <tr>
                   <th>image</th>
                   <td><%= image_tag @model.image.url, :class => "model-image" if @model.image? %></td>
                 </tr>
