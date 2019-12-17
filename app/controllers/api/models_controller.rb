@@ -29,5 +29,19 @@ module Api
         :colors => @colors
       }
     end
+
+    def model_analystic 
+      @model_categories = {}
+      models = Model.all
+      models.each_with_index do |model, index|
+        count = 0
+        model.detail_models.each do |detail_model|
+          qty = detail_model.order_details.recent.count
+          count += qty
+        end 
+        @model_categories[index] = {"name": model.name, "qty": count}
+      end
+      render :json => @model_categories
+    end
   end
 end

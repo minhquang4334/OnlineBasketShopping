@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_064552) do
+ActiveRecord::Schema.define(version: 2019_12_11_095638) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 2019_12_11_064552) do
     t.integer "quantity"
     t.bigint "order_id"
     t.bigint "detail_model_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["detail_model_id"], name: "index_order_details_on_detail_model_id"
     t.index ["order_id"], name: "index_order_details_on_order_id"
   end

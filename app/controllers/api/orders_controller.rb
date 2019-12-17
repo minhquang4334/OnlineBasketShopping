@@ -33,7 +33,7 @@ module Api
     def order_params
       params.permit(
           :status, :address, :phone_number, :payment_id, :receive_name, :payment_type_id, :shipping_type_id,
-          :user_id
+          :user_id, :price
       )
     end
 
