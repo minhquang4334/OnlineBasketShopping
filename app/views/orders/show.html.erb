@@ -1,0 +1,91 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Order's info</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="<%= root_path %>">Dashboard</a></li>
+          <li class="breadcrumb-item"><%= link_to "List models", orders_path %></li>
+          <li class="breadcrumb-item active">Order's info</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary">
+          <div class="card-body">
+            <table class="table table-bordered text-center">
+              <thead>                  
+                <tr class="bg-black text-white">
+                  <th>Name</th>
+
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Order at</th>
+                  <th>Price</th>
+                  <th>Payment type</th>
+                  <th>Shipping type</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= @order.user.name %></td>
+                  <td><%= @order.address %></td>
+                  <td><%= @order.phone_number %></td>
+                  <td><%= @order.created_at.strftime("%-d/%-m/%Y %H:%M:%S") %></td>
+                  <td><%= @order.price %> $</td>
+                  <td><%= @order.payment_type.payment_type %></td>
+                  <td><%= @order.shipping_type.shipping_type%></td>
+                  <td><% if(@order.status == 0) %>
+                        <span class="badge badge-primary">Received</span>
+                      <% elsif @order.status == 1 %>
+                        <span class="badge badge-warning">Shipping</span>
+                      <% elsif @order.status == 2 %>
+                        <span class="badge badge-success">Success</span>
+                      <% elsif @order.status == 3 %>
+                        <span class="badge badge-success">Destroyed</span>
+                      <% end %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-bordered text-center mt-3">
+              <tr class="bg-black text-white">
+                <th>#</th>
+                <th>Model's name</th>
+                <th>Size</th>
+                <th>Color</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+              </tr>
+              <% @order.order_details.each_with_index do |order_detail, index| %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= order_detail.detail_model.model.name %></td>
+                  <td><%= order_detail.detail_model.size.size %></td>
+                  <td><%= order_detail.detail_model.color.color %></td>
+                  <td><%= image_tag order_detail.detail_model.model.image.url, :class => "model-image" %></td>
+                  <td><%= order_detail.detail_model.price %> $</td>
+                  <td><%= order_detail.quantity %></td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+
+          <div class="card-footer">
+            <%= link_to "Back", :back, :class => "btn btn-inline-block btn-outline-info btn-sm" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

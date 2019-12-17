@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :detail_models
   resources :posts
   resources :models
+  resources :orders, only: [:index, :show, :update, :destroy]
   resources :sizes, only: [:create, :destroy] 
   resources :colors, only: [:create, :destroy] 
   devise_for :users

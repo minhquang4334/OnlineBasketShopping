@@ -3,16 +3,13 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>List models</h1>
+        <h1>List orders</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="<%= root_path %>">Dashboard</a></li>
-          <li class="breadcrumb-item active">List models</li>
+          <li class="breadcrumb-item active">List orders</li>
         </ol>
-      </div>
-      <div class="col-sm-12">
-        <%= button_to "Create new model", new_model_path, :method => :get, :class => "btn btn-inline  btn-primary float-right" %>
       </div>
     </div>
   </div><!-- /.container-fluid -->
@@ -41,22 +38,35 @@
                   <th style="width: 10px">#</th>
                   <th>Name</th>
 
-                  <th>Description</th>
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Order at</th>
                   <th>Price</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <% @models.each do |model| %>
+                <% @orders.each do |order| %>
                   <tr>
-                    <td><%= model.id %></td>
-                    <td><%= model.name %></td>
-                    <td><%= truncate(model.description, :length => 100) %></td>
-                    <td><%= model.price %></td>
+                    <td><%= order.id %></td>
+                    <td><%= order.user.name %></td>
+                    <td><%= order.address %></td>
+                    <td><%= order.phone_number %></td>
+                    <td><%= order.created_at.strftime("%-d/%-m/%Y %H:%M:%S") %></td>
+                    <td><%= order.price %> $</td>
+                    <td><% if(order.status == 0) %>
+                          <span class="badge badge-primary">Received</span>
+                        <% elsif order.status == 1 %>
+                          <span class="badge badge-warning">Shipping</span>
+                        <% elsif order.status == 2 %>
+                          <span class="badge badge-success">Success</span>
+                        <% elsif order.status == 3 %>
+                          <span class="badge badge-success">Destroyed</span>
+                        <% end %>
+                    </td>
                     <td>
-                      <%= link_to "Info", model, :class => "btn btn-inline-block btn-outline-info btn-sm" %>
-                      <%= link_to "Edit", edit_model_path(model)  ,:class => "btn btn-inline-block btn-outline-warning btn-sm" %>
-                      <%= link_to "Delete", model, method: :delete, data: { confirm: "Are you sure" }, :class => "btn btn-inline-block btn-outline-danger btn-sm" %>
+                      <%= link_to "Info", order, :class => "btn btn-inline-block btn-outline-info btn-sm" %>
                     </td>
                   </tr>
                 <% end %>  
