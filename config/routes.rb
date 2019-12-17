@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   get "/info", to: "api/models#info"
   get "/size_color", to: "api/models#size_color"
   post "/order", to: "api/orders#create"
+  get "analystic/model", to: "api/models#model_analystic"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

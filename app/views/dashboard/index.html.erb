@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 card card-primary py-5">
-        <div class="row m-0  mb-5">
+        <div class="row m-0  mb-5 justify-content-md-center">
           <div class="analystic col-lg-2 p-2">
             <p class="m-0 title">売上</p>
             <p class="m-0 value">$100.53</p>
@@ -28,15 +28,12 @@
             <p class="m-0 value">80%</p>
             <p class="m-0 percent">1.4% 昨日から</p>
           </div>
-          <div class="analystic col-lg-2 p-2">
-            <p class="m-0 title">収入</p>
-            <p class="m-0 value">$　400.53</p>
-            <p class="m-0 percent">2.4% 昨日から</p>
-          </div>
         </div>
-        <div class="row m-0 analystic">
-          <div id="chart-01" class="col-lg-8"></div>
-          <div id="chart-02" class="col-lg-4"></div>
+        <div class="row m-0 justify-content-md-center" id="analystic-data" data-revenue="<%= @revenue_categories %>" 
+                                                data-sales="<%= @sales_categories %>"
+                                                data-day="<%= @day_categories %>">
+          <div id="chart-01" class="col-lg-12"></div>
+          <div id="chart-02" class="col-lg-6 mt-5"></div>
         </div>
         
       </div>
@@ -46,30 +43,30 @@
   <!-- /.container-fluid -->
 </div>
 <script>
-function initChart01() {
+function initChart01(day_categories, revenue_categories, sales_categories) {
   $('#chart-01').highcharts({
     chart: {
       zoomType: 'xy'
     },
-    // title: {
-    //     text: 'Average Monthly Temperature and Rainfall in Tokyo'
-    // },
+    title: {
+        text: 'グラフには、1日あたりの売上と製品販売数が表示されます'
+    },
     // subtitle: {
     //     text: 'Source: WorldClimate.com'
     // },
     xAxis: [{
-        categories: ['月', '火', '水', '木', '金', '土', '日'],
+        categories: day_categories,
         crosshair: true
     }],
     yAxis: [{ // Primary yAxis
         labels: {
-            format: '{value}＄',
+            format: '{value}本',
             style: {
                 color: Highcharts.getOptions().colors[1]
             }
         },
         title: {
-            text: '収入',
+            text: '販売数',
             style: {
                 color: Highcharts.getOptions().colors[1]
             }
@@ -107,23 +104,23 @@ function initChart01() {
         name: '売上',
         type: 'column',
         yAxis: 1,
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6],
+        data: revenue_categories,
         tooltip: {
             valueSuffix: '＄'
         }
 
     }, {
-        name: '収入',
+        name: '販売数',
         type: 'spline',
-        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2],
+        data: sales_categories,
         tooltip: {
-            valueSuffix: '＄'
+            valueSuffix: '本'
         }
     }]
   });
 }
 
-function initChart02() {
+function initChart02(data) {
   $('#chart-02').highcharts({
 		chart: {
 				plotBackgroundColor: null,
@@ -131,9 +128,9 @@ function initChart02() {
 				plotShadow: false,
 				type: 'pie'
 		},
-		// title: {
-		// 		text: 'Browser market shares in January, 2018'
-		// },
+		title: {
+				text: 'チャートには、販売された製品タイプの割合が表示されます'
+		},
 		tooltip: {
 				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
 		},
@@ -148,22 +145,35 @@ function initChart02() {
 				}
 		},
 		series: [{
-				name: 'Brands',
+				name: '販売数',
 				innerSize: '40%',
 				colorByPoint: true,
-				data: [{
-						name: '市場',
-						y: 60,
-				}, {
-						name: '客',
-						y: 40
-				}]
+				data: data
 		}]
   });
 }
 
 $(document).ready(function(){
-	initChart01();
-	initChart02();
+  var revenue_categories = $("#analystic-data").data("revenue");
+  var sales_categories = $("#analystic-data").data("sales");
+  var day_categories = $("#analystic-data").data("day");
+  // console.log(sales_categories);
+	initChart01(day_categories, revenue_categories, sales_categories);
+  $.ajax({
+    type: "get", 
+    url: "/analystic/model",
+    success: function(res){
+      var data = [];
+      $.each(res, function(key, value) {
+        data.push({
+          name: value.name,
+          y: value.qty
+        })
+      });
+      initChart02(data);
+    },
+    // error: function(repsonse){...}
+  });
+	
 });
 </script>
